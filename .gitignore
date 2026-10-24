@@ -1,0 +1,59 @@
+# Documentation .gitignore build folders
+.venv/
+_build/
+_static/
+_templates/
+.obsidian/
+
+# ============================================
+# .NET / ASP.NET Core
+# ============================================
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.nupkg
+*.snupkg
+project.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+# ============================================
+# React / TypeScript / Node
+# ============================================
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+.env
+.env.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+
+# ============================================
+# Sphinx / Python / Documentation
+# ============================================
+_build/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+sphinx-err*.log
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ============================================
+# IDE
+# ============================================
+.idea/
+*.sublime-project
+*.sublime-workspace   
