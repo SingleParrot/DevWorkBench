@@ -6,13 +6,16 @@ export function Login () {
    // User + Password + Error
    const [username,setUsername] = useState('');
    const [password,setPassword] = useState('');
+   const [error,setError] = useState('');
 
    const routeToRegister = () => {
     navigate('/sign-up',{replace:true});
    };
 
-   const loginUser = async() => {
+   
 
+   const loginUser = async() => {
+    
    };
 
     return (
@@ -30,6 +33,9 @@ export function Login () {
                 <button type='reset'></button>
                 <button type="submit" onClick={loginUser}></button>
                 <button type="button" onClick={routeToRegister}></button>
+            </div>
+            <div>
+                {error}
             </div>
         </form>
         </>

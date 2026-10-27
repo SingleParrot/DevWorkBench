@@ -5,5 +5,12 @@
 `User`
 - username
 - password
-- JWT
 - email
+- timestamp -- time when user was created
+
+`JWT`
+- id
+- userid
+- jwt
+- type
+- timestamp

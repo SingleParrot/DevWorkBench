@@ -3,3 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 // .NET Backens sets token back to Login dircetly as Cookie 
 // as HTTP only and Secure
 // best option
+// setting cookie in backend
+namespace DevWorkBench
+{
+    
+}
