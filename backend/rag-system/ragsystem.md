@@ -1,11 +1,13 @@
 # RAG System
 
 ## Architecture:
+
 - Go (Gin)
 - PostgreSQL Vector DB
-- Ollama
+- Ollama/AI API Endpoint (Gemini,GPT)
 
 ## Description:
-- Issue Board and Documentationverwaltung with KI Integration
-- ReadOnly Information no automation changes through KI
+
+- Issue Board and DocumentationManagement with AI Integration
+- ReadOnly Information no automation changes through AI
 - Add AI source to access the data
