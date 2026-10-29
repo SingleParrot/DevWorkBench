@@ -1,5 +1,7 @@
-public record User
+namespace DevWorkBench;
+
+public record RequestUser
 {
-    String Username = String.Empty;
-    String Password = String.Empty;
+    public string Username {get;init;} = String.Empty;
+    public string Password {get;init;} = String.Empty;
 }

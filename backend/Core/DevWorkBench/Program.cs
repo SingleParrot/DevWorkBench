@@ -1,5 +1,7 @@
 using System.Text;
+using DevWorkBench;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 public class Program 
@@ -40,7 +42,10 @@ public class Program
                         Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!))
                 };
             });
-
+        
+        builder.Services.AddDbContext<UserContext>(
+            options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"))
+        );
 
         var app = builder.Build();
 

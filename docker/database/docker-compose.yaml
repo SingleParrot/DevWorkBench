@@ -1,17 +1,19 @@
 version: '3.8'
+
 services:
   db:
-    image: postgres:latest
+    image: pgvector/pgvector:pg18 # integrates pgvector extension
     container_name: devworkbench
     environment:
       POSTGRES_USER: devworkbench
       POSTGRES_PASSWORD: devworkbench
-      POSTGRES:DB: devworkbench
+      POSTGRES_DB: devworkbench
     ports:
-      - "5432:5432" 
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
 
 volumes:
   db-data:
