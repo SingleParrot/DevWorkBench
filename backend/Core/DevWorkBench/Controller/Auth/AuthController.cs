@@ -13,14 +13,11 @@ namespace DevWorkBench
     public class AuthController : ControllerBase
     {
 
-        private readonly UserContext _userContext;
+        
 
-        [HttpPost("login")]
-        public async Task<ActionResult<User>> Login ([FromBody] RequestUser user)
-        {// JWT Token as return Item
-            // Compare Username & Password and Hash Password 
-            
-            
-        }
+        // POST Router Login 
+
+
+        // POST Router Sign Up
     }
 }

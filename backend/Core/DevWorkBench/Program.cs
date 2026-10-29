@@ -59,6 +59,6 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-        await app.RunAsync();   
+        await app.RunAsync(); // dotnet run --launch-profile https  
     }
 }
