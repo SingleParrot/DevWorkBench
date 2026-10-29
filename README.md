@@ -1,4 +1,10 @@
+<div>
+
 # DevWorkBench
+
+![Status](https://img.shields.io/badge/Status-Development-orange?style=for-the-badge) ![Architecture](https://img.shields.io/badge/Architecture-Client--Server-blue?style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge) ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white) ![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) ![Tests](https://img.shields.io/badge/Tests-0%20passing-brightgreen?style=for-the-badge&logo=github-actions) ![Coverage](https://img.shields.io/badge/Coverage-0%25-red?style=for-the-badge) ![Code Quality](https://img.shields.io/badge/Code%20Style-Clean-informational?style=for-the-badge)
+
+</div>
 
 A unified developer workspace designed to centralize the tools and workflows developers use every day, reducing context switching and increasing focus. The goal is to provide a single platform where developers can manage projects, track time, connect to Git providers, work on documents, edit files, play music, customize workflows, and collaborate efficiently in one experience.
 
