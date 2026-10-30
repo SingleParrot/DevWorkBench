@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 
 namespace DevWorkBench
 {
     public class UserService
     {
-        private readonly UserContext _userContext;
+        private UserContext _userContext;
         private PasswordHasher<string> hasher = new PasswordHasher<string>();
 
         public UserService (UserContext context)
@@ -68,6 +69,17 @@ namespace DevWorkBench
             await _userContext.SaveChangesAsync();
             ConsoleLogger.Info($"Deleted User:" + user.Username);
             return user;
+        }
+
+        public async Task<bool> CompareUserCredentials (RequestUser user)
+        {
+            var userPassword = hasher.HashPassword(null!,user.Password);
+            var dbUser = await _userContext.Users.FindAsync(user.Username);
+            if (dbUser != null && dbUser.Password.Equals(userPassword))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

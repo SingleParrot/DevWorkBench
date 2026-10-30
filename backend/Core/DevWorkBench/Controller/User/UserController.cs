@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity; // Password Hasher
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization; // Password Hasher
 
 namespace DevWorkBench
 {
@@ -9,11 +10,11 @@ namespace DevWorkBench
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private UserService userService;
+        private UserService _userService;
 
-        public UserController (UserService user)
-        {
-            this.userService = user;
-        }
+        //[HttpGet]
+        //[Authorize(Roles = "admin")]
+
+
     }
 }
