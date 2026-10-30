@@ -47,6 +47,8 @@ public class Program
             options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"))
         );
 
+        builder.Services.AddScoped<UserService>();
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())

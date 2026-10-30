@@ -9,20 +9,11 @@ namespace DevWorkBench
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserContext _context;
+        private UserService userService;
 
-        public UserController (UserContext userContext)
+        public UserController (UserService user)
         {
-            _context = userContext;
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<User>> CreateUser ([FromBody] User user)
-        {
-            User DbUser = new User();
-            // Hash Password & Apply Save Async
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(user),user);
+            this.userService = user;
         }
     }
 }
