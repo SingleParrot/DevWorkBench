@@ -43,11 +43,19 @@ public class Program
                 };
             });
         
+        // EF Core Contexts 
         builder.Services.AddDbContext<UserContext>(
             options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"))
         );
 
+        builder.Services.AddDbContext<JwtContext>(
+            options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"))
+        );
+
+
+        // EF Services 
         builder.Services.AddScoped<UserService>();
+        builder.Services.AddScoped<TokenService>();
 
         var app = builder.Build();
 
