@@ -70,5 +70,8 @@ public class Program
         app.UseAuthorization();
         app.MapControllers();
         await app.RunAsync(); // dotnet run --launch-profile https  
+        FileLogger logger = FileLogger.Instance;
+        logger.CreateLogFile();
+        logger.AddLog("Server started","INFO");
     }
 }
