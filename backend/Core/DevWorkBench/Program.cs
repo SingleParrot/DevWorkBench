@@ -73,5 +73,6 @@ public class Program
         FileLogger logger = FileLogger.Instance;
         logger.CreateLogFile();
         logger.AddLog("Server started","INFO");
+        ConsoleLogger.Info("Server started");
     }
 }

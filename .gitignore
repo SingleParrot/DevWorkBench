@@ -18,6 +18,8 @@ obj/
 project.lock.json
 artifacts/
 **/Properties/launchSettings.json
+*.log
+logs/
 
 # ============================================
 # React / TypeScript / Node

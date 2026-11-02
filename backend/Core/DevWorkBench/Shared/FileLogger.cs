@@ -2,7 +2,7 @@ using System;
 using System.IO;
 
 namespace DevWorkBench;
-
+// Singleton pattern for logging to a file
 public sealed class FileLogger // File can't be inherited, Singleton pattern
 {
     private string _filePath = string.Empty;
@@ -16,9 +16,9 @@ public sealed class FileLogger // File can't be inherited, Singleton pattern
     {
         lock (_lock)
         {
-            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string fileName  = $"log_{timestamp}.log";
-            string dir       = "logs";
+            string dir = Path.Combine(AppContext.BaseDirectory, "logs");
+        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        string fileName = $"log_{timestamp}.log";
 
             Directory.CreateDirectory(dir);   // ← Ordner sicherstellen
             _filePath = Path.Join(dir, fileName);

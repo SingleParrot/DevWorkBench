@@ -1,37 +1,45 @@
+using System;
+
 namespace DevWorkBench;
 
 public static class ConsoleLogger
 {
-    // 1. Info-Log (Cyan für gute Lesbarkeit)
+    private static readonly object _lock = new();
+
     public static void Info(string message)
     {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [INFO] {message}");
-        Console.ResetColor(); // Wichtig: Farbe zurücksetzen, sonst bleibt alles farbig!
+        lock (_lock)
+        {
+            Console.WriteLine($"\u001b[36m[{DateTime.Now:HH:mm:ss}] [INFO] {message}\u001b[0m");
+            Console.Out.Flush();  // ← das ist der Fix
+        }
     }
 
-    // 2. Warning-Log (Gelb für Warnungen)
     public static void Warning(string message)
     {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [WARNING] {message}");
-        Console.ResetColor();
+        lock (_lock)
+        {
+            Console.WriteLine($"\u001b[33m[{DateTime.Now:HH:mm:ss}] [WARNING] {message}\u001b[0m");
+            Console.Out.Flush();
+        }
     }
 
-    // 3. Error-Log (Rot für Fehlermeldungen - ohne Exception)
     public static void Error(string message)
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [ERROR] {message}");
-        Console.ResetColor();
+        lock (_lock)
+        {
+            Console.WriteLine($"\u001b[31m[{DateTime.Now:HH:mm:ss}] [ERROR] {message}\u001b[0m");
+            Console.Out.Flush();
+        }
     }
 
-    // 4. Error-Log mit echter Exception (Überladene Methode / Overloading)
     public static void Error(string message, Exception ex)
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [ERROR] {message}");
-        Console.WriteLine($"Details: {ex.Message}");
-        Console.ResetColor();
+        lock (_lock)
+        {
+            Console.WriteLine($"\u001b[31m[{DateTime.Now:HH:mm:ss}] [ERROR] {message}\u001b[0m");
+            Console.WriteLine($"\u001b[31m  Details: {ex.Message}\u001b[0m");
+            Console.Out.Flush();
+        }
     }
-}
+}   
