@@ -1,19 +1,19 @@
 DROP DATABASE IF EXISTS devworkbench;
 
-DROP TABLE IF EXISTS USER;
-DROP TABLE IF EXISTS JWT;
+DROP TABLE IF EXISTS "User";
+DROP TABLE IF EXISTS "Jwt";
 
-CREATE TABLE USER (
+CREATE TABLE "User" (
     userid bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
-    userpassword VARCHAR(255) NOT NULL, 
+    userpassword VARCHAR(255) NOT NULL,
     email TEXT UNIQUE NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW(),
-    isactive BIT NOT NULL DEFAULT 0,
-    roles VARCHAR(10) not null DEFAULT "user"
+    isactive BOOLEAN NOT NULL DEFAULT FALSE,
+    roles VARCHAR(10) not null DEFAULT 'user'
 );
 
-CREATE TABLE JWT (
+CREATE TABLE "Jwt" (
     jwtid bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     userid bigint not null,
     token TEXT not null,
@@ -21,6 +21,6 @@ CREATE TABLE JWT (
     created_at TIMESTAMPTZ DEFAULT NOW(),
     CONSTRAINT fk_user_jwt
         FOREIGN KEY (userid)
-        REFERENCES user(userid)
+        REFERENCES "User"(userid)
         ON DELETE CASCADE
-);
+);   
