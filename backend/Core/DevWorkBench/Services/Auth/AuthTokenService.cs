@@ -96,7 +96,7 @@ namespace DevWorkBench
 
         public string GenerateRefreshToken (User user)
         {
-            var randomNumber = new byte[64];
+            var randomNumber = new byte[64];// using = garbage collector automatically disposes of the object when it is no longer needed, freeing up resources and preventing memory leaks.    
             using (var rng = RandomNumberGenerator.Create()) // using System.Security.Cryptography; to generate a random number for the refresh token
             {
                 rng.GetBytes(randomNumber);// fills in an array of bytes with a cryptographically strong sequence of random values

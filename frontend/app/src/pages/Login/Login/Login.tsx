@@ -17,7 +17,7 @@ export function Login() {
 
    
    const handleLoginSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+        e.preventDefault();// prevent the default form submission behavior
 
         const user: User = {
             username: username,
@@ -26,7 +26,7 @@ export function Login() {
 
         const loginService = new LoginService();
         const response: Response | null = await loginService.fetchUser(user);
-    
+
         if (response) {
           navigate('/dashboard', { replace: true });
         } else {
