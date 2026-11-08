@@ -36,14 +36,16 @@ public class Program
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
+
                     ValidIssuer = builder.Configuration["Jwt:Issuer"]!,
                     ValidAudience = builder.Configuration["Jwt:Audience"]!,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!))
+                        Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!)
+                    )
                 };
             });
         
-        // EF Core Contexts 
+        // EF Core Contexts
         builder.Services.AddDbContext<UserContext>(
             options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"))
         );
@@ -53,7 +55,7 @@ public class Program
         );
 
 
-        // EF Services 
+        // Auth Services for Reistration and Login
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<TokenService>();
 
@@ -61,7 +63,7 @@ public class Program
 
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi();
+            app.MapOpenApi(); // Swagger UI for API documentation
         }
 
         app.UseCors("AllowReactFrontend");
