@@ -15,6 +15,7 @@ namespace DevWorkBench
     public class AuthController : ControllerBase
     {
         private readonly UserService _userService;
+        private TokenService _tokenService;
         // POST Router Login 
         [HttpPost]
         [Route("login")]
@@ -25,14 +26,42 @@ namespace DevWorkBench
             {
                 return Unauthorized();
             }
+
+            User dbUser = await _userService.GetUserByName(requestUser.Username);
+            if (dbUser is null)
+            {   
+               return Unauthorized(); 
+            }
+
             // Implement Access Token
-              
+            var accessToken = _tokenService.GenerateAccessToken(dbUser);
 
             // Implement Refresh Token
+            var refreshToken = _tokenService.GenerateRefreshToken();
 
-            // Set Cookie in Refresh Token
+            // Adds Token with TokenService
+            await _tokenService.AddToken(new Jwt(refreshToken,"refresh",dbUser,dbUser.Id,false));
+
+            // Set Cookie in Refresh Token & Access Token
+            Response.Cookies.Append("access_token",accessToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true, // SSL 
+                SameSite = SameSiteMode.Strict, // CSRF Protection = only sends if Request is from the same site
+                Expires = DateTimeOffset.UtcNow.AddMinutes(15),
+                Path="/"
+            });
+
+            Response.Cookies.Append("refresh_token",refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true, // SSL 
+                SameSite = SameSiteMode.Strict, // CSRF Protection   
+                Expires = DateTimeOffset.UtcNow.AddDays(7),
+                Path="/api/auth" // send cookie to that path = frontend & API same origin 
+            });
             
-            return Ok(); // Returns code 200 and access toekn to save in RAM
+            return Ok(accessToken); // Returns code 200 and access toekn to save in RAM
         }
         // POST Router Sign Up
         [HttpPost]
@@ -48,6 +77,14 @@ namespace DevWorkBench
         [Route("logout")]
         public async Task<ActionResult> Logout()
         {
+
+            // Add Jwt Variable for Db setting flag so if user login it can be reactivated
+            // Also update db table script and reload container
+
+            // Delete Cookies
+            Response.Cookies.Delete("access_token");
+            Response.Cookies.Delete("refresh_token");
+
             // Implement Logout logic
             return Ok();
         }
