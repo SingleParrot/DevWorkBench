@@ -3,7 +3,7 @@ services:
     image: pgvector/pgvector:0.8.7-pg18
     container_name: devworkbench
     environment:
-      POSTGRES_USER: devworkbench
+      POSTGRES_USER: devworkbench # for the db credentials use a .env file and secure it with sudo rights
       POSTGRES_PASSWORD: devworkbench
       POSTGRES_DB: devworkbench
     ports:

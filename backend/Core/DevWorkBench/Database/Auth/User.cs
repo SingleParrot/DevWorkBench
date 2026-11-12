@@ -20,5 +20,6 @@ public class User
     public string Password {get;set;} = String.Empty;
     public string Email {get;set;} = String.Empty;
     public bool IsActive {get;set;} = false;
-    public string Roles {get;set;} = String.Empty;
+    public int RoleId {get;set;}
+    public Role Role;
 }

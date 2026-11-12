@@ -68,6 +68,9 @@ namespace DevWorkBench
         [Route("signup")]
         public async Task<ActionResult> SignUp([FromBody] RequestUser requestUser)
         {
+            // User sends data to db and password is being hashed and inserted 
+
+
             // Implement Sign Up logic
             return Ok();
         }
@@ -80,6 +83,7 @@ namespace DevWorkBench
 
             // Add Jwt Variable for Db setting flag so if user login it can be reactivated
             // Also update db table script and reload container
+            // Refresh token löschen 
 
             // Delete Cookies
             Response.Cookies.Delete("access_token");
@@ -94,6 +98,16 @@ namespace DevWorkBench
         [Route("refresh")]
         public async Task<ActionResult> Refresh()
         {
+            var refreshToken = _tokenService.GenerateRefreshToken();
+            Response.Cookies.Append("refresh_token",refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true, // SSL 
+                SameSite = SameSiteMode.Strict, // CSRF Protection   
+                Expires = DateTimeOffset.UtcNow.AddDays(7),
+                Path="/api/auth" // send cookie to that path = frontend & API same origin 
+            });
+
             // Implement Refresh Token logic
             return Ok();
         }

@@ -56,7 +56,7 @@ namespace DevWorkBench
 
             dbUser.Email = user.Email;
             dbUser.IsActive = user.IsActive;
-            dbUser.Roles = user.Roles;
+            dbUser.RoleId = user.RoleId;
 
             await _userContext.SaveChangesAsync();
             ConsoleLogger.Info($"Updated User:" + dbUser.Username);
