@@ -8,13 +8,16 @@ namespace DevWorkBench
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UserController(UserService _userService) : ControllerBase
     {
-        private UserService _userService;
 
-        //[HttpGet]
-        //[Authorize(Roles = "admin")]
-
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<User> GetUserWithId (string name)
+        {
+            User? user = await _userService.GetUserByName(name);
+            return user!;   
+        }
 
     }
 }

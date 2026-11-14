@@ -1,0 +1,1 @@
+// Creates a Hook Service which should help creating a connection to the api endpoint for authenification

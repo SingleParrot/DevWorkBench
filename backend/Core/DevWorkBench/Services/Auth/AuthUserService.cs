@@ -9,12 +9,13 @@ namespace DevWorkBench
 {
     public class UserService
     {
-        private UserContext _userContext;
+        private readonly UserContext _userContext;
         private PasswordHasher<string> hasher = new PasswordHasher<string>();
+        private AuthRoleService _authRoleService;
 
         public UserService (UserContext context)
         {
-            _userContext = context;
+            this._userContext = context;
         }
 
         public async Task<List<User>> GetAllUsers ()
@@ -24,7 +25,14 @@ namespace DevWorkBench
 
         public async Task<User?> GetUserByName (string name) // Implemet ? because user can't be implemented
         {
-            return await _userContext.Users.FindAsync(name);
+            var user = await _userContext.Users.FindAsync(name);
+            await SetRoleAsync(user!);
+            return user;
+        }
+
+        public async Task SetRoleAsync (User? user)
+        {
+            user?.Role = await _authRoleService.GetRoleAsync(user.RoleId!);
         }
 
         public async Task<User?> CreateUser (User user)

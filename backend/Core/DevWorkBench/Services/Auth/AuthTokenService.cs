@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 namespace DevWorkBench
 {
     public class TokenService {
-        private JwtContext _tokenContext;
+        private readonly JwtContext _tokenContext;
         private readonly IConfiguration _configuration;
 
         public TokenService (JwtContext tokenContext, IConfiguration configuration)
@@ -77,7 +77,7 @@ namespace DevWorkBench
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             claims.Add(new Claim(ClaimTypes.Name, user.Username));
-            claims.Add(new Claim(ClaimTypes.Role, user.Roles));
+            claims.Add(new Claim(ClaimTypes.Role, user.Role.RoleName)); // puts string of Role into claim because only type string can be transfered in the claim
 
 
            var tokenDescriptor = new SecurityTokenDescriptor

@@ -12,10 +12,8 @@ namespace DevWorkBench
 {
     [ApiController]
     [Route("api/auth")]
-    public class AuthController : ControllerBase
+    public class AuthController(UserService _userService,TokenService _tokenService) : ControllerBase
     {
-        private readonly UserService _userService;
-        private TokenService _tokenService;
         // POST Router Login 
         [HttpPost]
         [Route("login")]
@@ -27,7 +25,7 @@ namespace DevWorkBench
                 return Unauthorized();
             }
 
-            User dbUser = await _userService.GetUserByName(requestUser.Username);
+            User? dbUser = await _userService.GetUserByName(requestUser.Username);
             if (dbUser is null)
             {   
                return Unauthorized(); 
@@ -61,6 +59,10 @@ namespace DevWorkBench
                 Path="/api/auth" // send cookie to that path = frontend & API same origin 
             });
             
+            // Creates new entry into the table jwt
+            Jwt jwt = new Jwt(refreshToken,"refresh",dbUser,dbUser.Id,false);
+            await _tokenService.AddToken(jwt);       
+            
             return Ok(accessToken); // Returns code 200 and access toekn to save in RAM
         }
         // POST Router Sign Up
@@ -80,10 +82,21 @@ namespace DevWorkBench
         [Route("logout")]
         public async Task<ActionResult> Logout()
         {
-
             // Add Jwt Variable for Db setting flag so if user login it can be reactivated
             // Also update db table script and reload container
-            // Refresh token löschen 
+            // Refresh token löschen
+            if (!Request.Cookies.TryGetValue("refreshToken", out var refreshToken) || string.IsNullOrEmpty(refreshToken))
+    {
+            // Wenn kein Cookie da ist, geben wir trotzdem 200 OK zurück (Sicherheit)
+                return Ok(new { message = "Logged out successfully" });
+            }
+
+
+            var token = String.Empty;
+            //Request.Cookies.TryGetValue("refresh_token",token);
+            //Jwt jwt = new Jwt();
+            //await _tokenService.UpdateToken(jwt);
+
 
             // Delete Cookies
             Response.Cookies.Delete("access_token");

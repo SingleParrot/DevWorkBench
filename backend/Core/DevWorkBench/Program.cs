@@ -54,10 +54,15 @@ public class Program
             options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"))
         );
 
+        builder.Services.AddDbContext<RoleContext>(
+            options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"))
+        );
+
 
         // Auth Services for Reistration and Login
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<TokenService>();
+        builder.Services.AddScoped<AuthRoleService>();
 
         var app = builder.Build();
 
